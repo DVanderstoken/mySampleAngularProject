@@ -1,9 +1,11 @@
 <div *ngIf="!user" class="login">
   login with&nbsp;
-  <i class="fa fa-facebook-official" aria-hidden="true" (click)="loginFacebook()"></i> &nbsp;|&nbsp;
+  <a ng-href="" (click)="loginFacebook()">
+  <i class="fa fa-facebook-official" aria-hidden="true"></i>
+    </a> &nbsp;|&nbsp;
   <i class="fa fa-google" aria-hidden="true" (click)="loginGoogle()"></i>
 </div>
 <div *ngIf="user">
-  <i class="fa fa-sign-out fa-2x textPastille clickable" (click)="logout()"></i>
+  <i class="fa fa-sign-out fa-2x textPastille" (click)="logout()"></i>
   <img class="pastille" src="{{ user.photoURL }}" alt="{{ user.displayName }}" title="{{ user.displayName }}">
 </div>
