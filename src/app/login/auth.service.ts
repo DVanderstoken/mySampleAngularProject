@@ -8,6 +8,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class AuthService {
 
   user: BehaviorSubject<firebase.User> = new BehaviorSubject<any>(false);
+  private isLogged: boolean;
+  private provider: firebase.auth.AuthProvider;
 
   constructor(public afAuth: AngularFireAuth) {
     this.afAuth.authState.subscribe(user => {
@@ -17,13 +19,18 @@ export class AuthService {
 
   loginFacebook() {
     console.log('logging in with Facebook');
-    //this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
-    this.afAuth.auth.signInWithRedirect(new firebase.auth.FacebookAuthProvider());
+    this.provider = new firebase.auth.FacebookAuthProvider();
+    this.login(this.provider);
   }
 
   loginGoogle() {
     console.log('logging in with Google');
-    this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+    this.provider = new firebase.auth.GoogleAuthProvider();
+    this.login(this.provider);
+  }
+
+  private login(provider: firebase.auth.AuthProvider) {
+    this.afAuth.auth.signInWithRedirect(provider);
   }
 
   logout() {
